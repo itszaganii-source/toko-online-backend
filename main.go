@@ -7,6 +7,7 @@ import (
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"toko-online-backend/config"
+	"toko-online-backend/routes"
 )
 
 func main() {
@@ -33,6 +34,9 @@ func main() {
 			"message": "pong",
 		})
 	})
+
+	// Setup product routes
+	routes.SetupProductRoutes(r)
 
 	// Start server on port 8080
 	log.Println("Server running on port 8080")
