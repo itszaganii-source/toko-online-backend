@@ -38,6 +38,9 @@ func main() {
 	// Setup product routes
 	routes.SetupProductRoutes(r)
 
+	// Setup order routes
+	routes.SetupOrderRoutes(r)
+
 	// Start server on port 8080
 	log.Println("Server running on port 8080")
 	r.Run(":8080")
