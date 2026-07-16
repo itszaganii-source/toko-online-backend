@@ -415,14 +415,13 @@ Project ini dikembangkan sebagai showcase portofolio untuk mendemonstrasikan kem
 
 ---
 
-## 👤 Developer Identity
+## 🧑‍� Identitas Developer
 
-| Detail | Informasi |
-| :--- | :--- |
-| **Nama** | Daffa |
-| **Peran** | Backend / Full-Stack Developer |
-| **Fokus Teknologi** | Go (Golang), React.js, JavaScript, SQLite |
-| **Kontak & Media Sosial** | [GitHub](https://github.com/daffa) | [LinkedIn](https://linkedin.com/in/daffa) |
+**GitHub:** [@itszaganii-source](https://github.com/itszaganii-source)
+
+**Email:** itszaganii@gmail.com
+
+Projek ini dibuat dengan dedikasi penuh untuk tujuan portofolio profesional dan pameran kapabilitas technical skill.
 
 ---
 
@@ -447,4 +446,4 @@ Project ini dilisensikan under MIT License.
 
 ---
 
-**Dibuat dengan ❤️ menggunakan Go & Gin**
+**Dibuat dengan menggunakan Go & Gin**
