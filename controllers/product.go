@@ -33,3 +33,40 @@ func CreateProduct(c *gin.Context) {
 		"data":    product,
 	})
 }
+
+func GetProducts(c *gin.Context) {
+	var products []models.Product
+
+	// Get all products from database
+	if err := config.DB.Find(&products).Error; err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": "Failed to retrieve products",
+		})
+		return
+	}
+
+	// Return products in JSON
+	c.JSON(http.StatusOK, gin.H{
+		"message": "Products retrieved successfully",
+		"data":    products,
+	})
+}
+
+func GetProductByID(c *gin.Context) {
+	var product models.Product
+	id := c.Param("id")
+
+	// Get product by ID from database
+	if err := config.DB.First(&product, id).Error; err != nil {
+		c.JSON(http.StatusNotFound, gin.H{
+			"error": "Product not found",
+		})
+		return
+	}
+
+	// Return product in JSON
+	c.JSON(http.StatusOK, gin.H{
+		"message": "Product retrieved successfully",
+		"data":    product,
+	})
+}

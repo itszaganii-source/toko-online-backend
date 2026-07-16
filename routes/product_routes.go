@@ -9,4 +9,6 @@ import (
 func SetupProductRoutes(router *gin.Engine) {
 	// Product routes
 	router.POST("/products", controllers.CreateProduct)
+	router.GET("/products", controllers.GetProducts)
+	router.GET("/products/:id", controllers.GetProductByID)
 }
