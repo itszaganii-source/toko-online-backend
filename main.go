@@ -1,13 +1,20 @@
 package main
 
 import (
+	"log"
 	"net/http"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
+	"toko-online-backend/config"
 )
 
 func main() {
+	log.Println("Starting server...")
+	
+	// Connect to database
+	config.ConnectDatabase()
+
 	// Create Gin router
 	r := gin.Default()
 
@@ -28,5 +35,6 @@ func main() {
 	})
 
 	// Start server on port 8080
+	log.Println("Server running on port 8080")
 	r.Run(":8080")
 }
