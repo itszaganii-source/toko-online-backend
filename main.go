@@ -7,6 +7,7 @@ import (
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"toko-online-backend/config"
+	"toko-online-backend/controllers"
 	"toko-online-backend/routes"
 )
 
@@ -34,6 +35,9 @@ func main() {
 			"message": "pong",
 		})
 	})
+
+	// Auth routes
+	r.POST("/api/login", controllers.Login)
 
 	// Setup product routes
 	routes.SetupProductRoutes(r)
