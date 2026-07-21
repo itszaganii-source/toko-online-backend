@@ -16,6 +16,10 @@ type CreateOrderRequest struct {
 	} `json:"items" binding:"required"`
 }
 
+type UpdateOrderStatusRequest struct {
+	Status string `json:"status" binding:"required"`
+}
+
 func CreateOrder(c *gin.Context) {
 	var req CreateOrderRequest
 
@@ -34,6 +38,7 @@ func CreateOrder(c *gin.Context) {
 	order := models.Order{
 		CustomerName: req.CustomerName,
 		TotalPrice:   0,
+		Status:       "Pending",
 	}
 
 	if err := tx.Create(&order).Error; err != nil {
@@ -125,4 +130,53 @@ func CreateOrder(c *gin.Context) {
 		"message": "Order created successfully",
 		"data":    order,
 	})
+}
+
+func GetOrders(c *gin.Context) {
+	var orders []models.Order
+
+	// Fetch all orders with their items
+	if err := config.DB.Preload("OrderItems.Product").Find(&orders).Error; err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": "Failed to fetch orders",
+		})
+		return
+	}
+
+	// Return orders
+	c.JSON(http.StatusOK, orders)
+}
+
+func UpdateOrderStatus(c *gin.Context) {
+	id := c.Param("id")
+	var req UpdateOrderStatusRequest
+
+	// Bind JSON request
+	if err := c.ShouldBindJSON(&req); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"error": err.Error(),
+		})
+		return
+	}
+
+	// Find order by ID
+	var order models.Order
+	if err := config.DB.First(&order, id).Error; err != nil {
+		c.JSON(http.StatusNotFound, gin.H{
+			"error": "Order not found",
+		})
+		return
+	}
+
+	// Update order status
+	order.Status = req.Status
+	if err := config.DB.Save(&order).Error; err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{
+			"error": "Failed to update order status",
+		})
+		return
+	}
+
+	// Return updated order
+	c.JSON(http.StatusOK, order)
 }
